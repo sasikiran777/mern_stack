@@ -2,6 +2,7 @@ import app from "./server.js";
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import RestaurantDao from "./api/dao/restaurant_dao.js";
+import ReviewsDao from "./api/dao/reviews_dao.js";
 
 dotenv.config()
 const MongoClient = mongodb.MongoClient
@@ -21,6 +22,7 @@ MongoClient.connect(
     })
     .then(async client => {
         await RestaurantDao.injectDB(client)
+        await ReviewsDao.injectDB(client)
         app.listen(port, () => {
             console.log(`listing to port ${port}`)
         })

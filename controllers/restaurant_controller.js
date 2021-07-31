@@ -30,4 +30,24 @@ export default class RestaurantController {
         }
         return res.json(response)
     }
+    static async getRestaurantById(req, res, nxt) {
+        try {
+            let id = req.params.id || {}
+            let restaurant = await RestaurantDao.getRestaurantById(id)
+            if(!restaurant) {
+                return res.status(404).json({message: 'Not Found'})
+            }
+            return res.status(200).json({data: restaurant})
+        } catch (e) {
+            return res.status(500).json({error: e})
+        }
+    }
+    static async getRestaurantCuisines(req, res, nxt) {
+        try {
+            let restaurant = await RestaurantDao.getRestaurantCuisines()
+            return res.status(200).json({data: restaurant})
+        } catch (e) {
+            return res.status(500).json({error: e})
+        }
+    }
 }

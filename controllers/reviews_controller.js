@@ -1,4 +1,4 @@
-import ReviewsDao from "../api/dao/reviews_dao";
+import ReviewsDao from "../api/dao/reviews_dao.js";
 
 export default class ReviewsController {
     static async createReview(req, res, nxt) {
@@ -6,10 +6,9 @@ export default class ReviewsController {
             let data = {}
             data.review = req.body.review
             data.restaurantId = req.body.restaurantId
-            data.userInfo = {
-                name: req.body.name,
-                _id: req.body.user_id
-            }
+            data.name = req.body.name
+            data.date = Date()
+            data.user_id = req.body.user_id
 
             let response = await ReviewsDao.createReview(data)
 
@@ -29,6 +28,7 @@ export default class ReviewsController {
             data.review_id = req.body.review_id
             data.text = req.body.text
             data.date = Date()
+            data.user_id = req.body.user_id
 
             const response = ReviewsDao.updateReview(data)
 
